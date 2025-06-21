@@ -1,0 +1,343 @@
+let enterButton;
+let a1Button;
+let a2Button;
+let b1Button;
+let b2Button;
+let exploreButton;
+let continueButton;
+let screen = 0;
+let bg;
+let color;
+let buttonColor = "white";
+let House;
+let yes;
+let no;
+
+
+function preload() {
+  // Load the background image
+  bg = loadImage("hogwarts.jpg");
+}
+
+function setup() {
+  textFont("Oswald");
+  createCanvas(windowWidth, windowHeight);
+  textAlign(CENTER);
+  noStroke();
+
+  // Set up the home screen with Hogwarts background image
+  background(bg);
+  textSize(30); // Set the text color to white
+  text("Welcome to Hogwarts", width / 2, 50); // Center the text horizontally
+  textSize(20);
+  enterButton = new Sprite(width / 2, height / 2 + 120);
+  a1Button = new Sprite(-100, -100);
+  a2Button = new Sprite(-100, -100);
+  b1Button = new Sprite(-100, -100);
+  b2Button = new Sprite(-100, -100);
+  yes = new Sprite(-100, -100);
+  no = new Sprite(-100, -100);
+  exploreButton = new Sprite(-100, -100);
+  continueButton = new Sprite(-100, -100);
+}
+function draw() {
+  //Draw enter button
+  enterButton.w = 175;
+  enterButton.h = 60;
+  enterButton.collider = "k";
+  enterButton.text = "Start the Adventure";
+  enterButton.color = buttonColor;
+
+
+  fill("white");
+
+  // Check enter button
+  if (enterButton.mouse.presses()) {
+    showScreen1();
+    screen = 1;
+  }
+
+  if (screen == 1) {
+    if (a1Button.mouse.presses()) {
+      color = 'green';
+      showScreen2();
+      screen = 2;
+      b1Button.text = "Draco Malfoy"
+      b2Button.text = "Prof. Snape"
+      House = "Slytherin";
+    } else if (a2Button.mouse.presses()) {
+      color = '#00008B';
+      House = "Ravenclaw";
+      showScreen2();
+      screen = 2;
+      b1Button.text = "Luna Lovegood"
+      b2Button.text = "Prof. Flitwick"
+    }
+  }
+  else if (screen == 2) {
+    if (b1Button.mouse.presses()) {
+      showScreen3();
+      screen = 3;
+    }
+    else if (b2Button.mouse.presses()) {
+      showScreen4();
+      screen = 4;
+    }
+  }
+  else if (screen == 3) {
+    if (yes.mouse.presses()) {
+      showScreen5();
+      screen = 5;
+    } else if (no.mouse.presses()) {
+      showScreen6();
+      screen = 6;
+    }
+  } else if (screen == 5) {
+    if (exploreButton.mouse.presses()) {
+      showScreen7();
+      screen = 7;
+    }
+    if (continueButton.mouse.presses()) {
+      showScreen8();
+      screen = 8;
+    }
+  }
+  else if (screen == 6) {
+    if (continueButton.mouse.presses()) {
+      showScreen8();
+      screen = 8;
+    }
+  } 
+    else if (screen == 7) {
+    if (b1Button.mouse.presses()) {
+      showScreen9();
+      screen = 9;
+    } else if (b2Button.mouse.presses()) {
+      showScreen10();
+      screen = 10;
+    }
+  } else if (screen == 8) {
+    if (b1Button.mouse.presses()) {
+      showScreen11();
+      screen = 11;
+    } 
+    else if (b2Button.mouse.presses()) {
+      showScreen12();
+      screen = 12;
+    }
+  }
+
+  print(screen);
+}
+
+/* FUNCTIONS TO DISPLAY SCREENS */
+function showScreen1() {
+  //print("Enter the game")
+  background('brown');
+  text(
+    "As you step inside the Great Hall, \nyour eyes widen in awe at the sight that greets you.\n The hall is adorned with floating candles,\nand the enchanted ceiling depicts a mesmerizing night sky\n \n It's your time to be sorted \n And the Sorting Hat is confused between 2 houses. \n It finally says…",
+    width / 2,
+    height / 2 - 125
+  );
+  // Move extra buttons off screen
+  enterButton.pos = { x: -100, y: -100 }; //do with x and y together first
+  b1Button.pos = { x: -100, y: -100 };
+  b2Button.pos = { x: -150, y: -150 };
+
+  // Add a1 button
+  a1Button.pos = { x: width / 2 - 110, y: height / 2 + 120 };
+  a1Button.w = 175;
+  a1Button.h = 60;
+  a1Button.collider = "k";
+  a1Button.color = buttonColor;
+  a1Button.text = "SLYTHERIN!";
+
+  // Add a2 button
+  a2Button.pos = { x: width / 2 + 110, y: height / 2 + 120 };
+  a2Button.w = 175;
+  a2Button.h = 60;
+  a2Button.collider = "k";
+  a2Button.color = buttonColor;
+  a2Button.text = "RAVENCLAW!";
+}
+
+function showScreen2() {
+  background(color)
+  fill('white');
+  text("Welcome to your house! \n While coming you overheard a huge secret about the dark magic \n Who should you tell?", width / 2, height / 2 - 35);
+  // Move extra buttons off screen
+  a1Button.pos = { x: -200, y: -200 };
+  a2Button.pos = { x: -50, y: -50 };
+  // Add b1 Button
+  b1Button.pos = { x: width / 2 - 110, y: height / 2 + 120 };
+  b1Button.w = 150;
+  b1Button.h = 60;
+  b1Button.collider = "k";
+  b1Button.color = buttonColor;
+  // Add b2 Button
+  b2Button.pos = { x: width / 2 + 110, y: height / 2 + 120 };
+  b2Button.w = 150;
+  b2Button.h = 60;
+  b2Button.collider = "k";
+  b2Button.color = buttonColor;
+
+}
+
+function showScreen3() {
+  background(color);
+  text("'Hmm..The secret sounds pretty interesting.\n Do you wanna go explore the dark woods after Class?'", width / 2, height / 2 - 60);
+  // Move extra buttons off screen
+  b1Button.pos = { x: -100, y: -100 };
+  b2Button.pos = { x: -150, y: -150 };
+  yes.pos = { x: width / 2 - 110, y: height / 2 + 140 };
+  yes.w = 150;
+  yes.h = 60;
+  yes.collider = "k";
+  yes.color = buttonColor;
+  yes.text = 'SURE';
+  // Add b2 Button
+  no.pos = { x: width / 2 + 110, y: height / 2 + 140 };
+  no.w = 150;
+  no.h = 60;
+  no.collider = "k";
+  no.color = buttonColor;
+  no.text = "NO THANKS";
+
+}
+
+function showScreen4() {
+  background(color);
+  text("'Its totally foolish' The professor exclaimed \n You should not go about hearing other's conversations \n Focus on your academics at your time here \n 10 points from " + House, width / 2, height / 2 - 40);
+  // Move extra buttons off screen
+  b1Button.pos = { x: -100, y: -100 };
+  b2Button.pos = { x: -150, y: -150 };
+}
+
+function showScreen5() {
+  background(color);
+  text("You both went to the woods at night; \nYou saw Hagrid! OH NO!\nFuriously he said, 'This could be really bad for " + House + " if a professor finds out. \n But its up to you", width / 2, height / 2 - 100);
+  
+  // Move extra buttons off screen
+  a1Button.pos = { x: -200, y: -200 };
+  a2Button.pos = { x: -50, y: -50 };
+  yes.pos = { x: -100, y: -100 };
+  no.pos = { x: -200, y: -200 };
+  
+  // Add exploreButton
+  exploreButton.pos = { x: width / 2 - 110, y: height / 2 + 120 };
+  exploreButton.w = 175;
+  exploreButton.h = 60;
+  exploreButton.collider = "k";
+  exploreButton.color = buttonColor;
+  exploreButton.text = "EXPLORE FURTHER";
+
+  continueButton.pos = { x: width / 2+ 110, y: height / 2 + 120 };
+  continueButton.w = 175;
+  continueButton.h = 60;
+  continueButton.collider = "k";
+  continueButton.color = buttonColor;
+  continueButton.text = "EXPLORE ARTIFACTS \n ROOM";
+}
+
+function showScreen6() {
+  background(color);
+  text(" 'Hmm.. okay.\n Lets explore the artifacts room then?'", width / 2, height / 2 - 40);
+  
+  // Move extra buttons off screen
+  yes.pos = { x: -100, y: -100 };
+  no.pos = { x: -200, y: -200 };
+  
+  // Add continueButton
+  continueButton.pos = { x: width / 2, y: height / 2 + 120 };
+  continueButton.w = 175;
+  continueButton.h = 60;
+  continueButton.collider = "k";
+  continueButton.color = buttonColor;
+  continueButton.text = "CONTINUE";
+}
+
+function showScreen7() {
+  background(color);
+  text("As you explore further into the woods, you encounter a mysterious creature!\nWhat will you do?", width / 2, height / 2 - 40);
+  
+  // Move extra buttons off screen
+  exploreButton.pos = { x: -100, y: -100 };
+  continueButton.pos = { x: -150, y: -150 };
+  // Add b1 Button
+  b1Button.pos = { x: width / 2 - 110, y: height / 2 + 120 };
+  b1Button.w = 150;
+  b1Button.h = 60;
+  b1Button.collider = "k";
+  b1Button.color = buttonColor;
+  b1Button.text = "BEFRIEND THE \n CREATURE";
+  
+  // Add b2 Button
+  b2Button.pos = { x: width / 2 + 110, y: height / 2 + 120 };
+  b2Button.w = 150;
+  b2Button.h = 60;
+  b2Button.collider = "k";
+  b2Button.color = buttonColor;
+  b2Button.text = "RUN AWAY!";
+}
+
+function showScreen8() {
+  background(color);
+  text("As you continue your exploration, you find a hidden treasure chest!\nWill you open it?", width / 2, height / 2 - 40);
+  
+  // Move extra buttons off screen
+  continueButton.pos = { x: -100, y: -100 };
+  exploreButton.pos = { x: -150, y: -150 };
+  
+  // Add b1 Button
+  b1Button.pos = { x: width / 2 - 110, y: height / 2 + 120 };
+  b1Button.w = 150;
+  b1Button.h = 60;
+  b1Button.collider = "k";
+  b1Button.color = buttonColor;
+  b1Button.text = "Open the Chest";
+  
+  // Add b2 Button
+  b2Button.pos = { x: width / 2 + 110, y: height / 2 + 120 };
+  b2Button.w = 150;
+  b2Button.h = 60;
+  b2Button.collider = "k";
+  b2Button.color = buttonColor;
+  b2Button.text = "Leave it Alone";
+}
+
+function showScreen9() {
+  background(color);
+  text("You decided to befriend the creature. It turns out to be a friendly Hippogriff!\nThe Hippogriff seems pleased with your gesture and \n offers to take you on a flight around Hogwarts.\nIt's an unforgettable experience!", width / 2, height / 2);
+  
+  // Move extra buttons off screen
+  b1Button.pos = { x: -100, y: -100 };
+  b2Button.pos = { x: -150, y: -150 };
+}
+
+function showScreen10() {
+  background(color);
+  text("You decided to run away from the mysterious creature. \n As you rush back, you stumble upon a secret shortcut!\nIt leads you to the Quidditch Pitch where a friendly game is going on.\nYou join the team and show off your Quidditch skills.\nYour impressive performance earns you 15 points for " + House + "!", width / 2, height / 2 - 100);
+  
+  // Move extra buttons off screen
+  b1Button.pos = { x: -100, y: -100 };
+  b2Button.pos = { x: -150, y: -150 };
+}
+
+function showScreen11() {
+  background(color);
+  text("You decided to open the treasure chest. \n As you open it, a shower of gold coins and magical artifacts spills out!\nYou find an ancient wand among the treasure, \n and it recognizes you as its true owner.\nThis is a great honor for " + House + "!", width / 2, height / 2 - 100);
+  
+  // Move extra buttons off screen
+  b1Button.pos = { x: -100, y: -100 };
+  b2Button.pos = { x: -150, y: -150 };
+  
+}
+
+function showScreen12() {
+  background(color);
+  text("You decided to leave the treasure chest alone. \n While it may have contained valuable items, \n you prioritize your studies and avoid unnecessary risks.\n Your wise decision earns you 20 points for " + House + "!", width / 2, height / 2 - 100);
+  
+  // Move extra buttons off screen
+  b1Button.pos = { x: -100, y: -100 };
+  b2Button.pos = { x: -150, y: -150 };
+}
